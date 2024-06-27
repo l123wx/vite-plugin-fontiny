@@ -2,8 +2,8 @@
   "name": "vite-plugin-fontiny",
   "version": "0.1.0",
   "packageManager": "pnpm@9.0.5",
-  "description": "",
-  "author": "elvis <llwxii@qq.com>",
+  "description": "A font file compression tool for Vite.",
+  "author": "elvis <https://github.com/l123wx>",
   "license": "MIT",
   "homepage": "https://github.com/l123wx/vite-plugin-fontiny",
   "repository": {
@@ -25,8 +25,7 @@
   ],
   "scripts": {
     "dev": "npm run build -- --watch",
-    "example:dev": "npm -C example run dev",
-    "example:build": "npm -C example run build",
+    "example:start": "npm -C example run start",
     "build": "tsup src/index.ts --dts --format cjs,esm",
     "prepublishOnly": "npm run build",
     "release": "npx bumpp && npm publish",
@@ -37,8 +36,10 @@
   },
   "devDependencies": {
     "@antfu/eslint-config": "^2.21.1",
+    "@rollup/pluginutils": "^5.1.0",
+    "@types/node": "^20.14.9",
     "@typescript-eslint/eslint-plugin": "^7.14.1",
-    "eslint": "^9.5.0",
+    "eslint": "^8.56.0",
     "rollup": "^4.18.0",
     "tsup": "^8.1.0",
     "typescript": "^5.5.2",
