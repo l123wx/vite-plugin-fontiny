@@ -1,5 +1,8 @@
-import { createApp } from 'vue'
-import App from './App.vue'
-import './index.css'
+const inputElement = document.querySelector('#input')
 
-createApp(App).mount('#app')
+if (inputElement) {
+  inputElement.addEventListener('input', (e) => {
+    const valueElement = document.querySelector('#value')
+    valueElement && (valueElement.innerHTML = (e.target as HTMLInputElement).value)
+  })
+}
