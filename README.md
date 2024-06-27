@@ -18,11 +18,11 @@ npm i vite-plugin-fontiny
 
 ```ts
 // vite.config.ts
-import VitePluginFontiny from 'vite-plugin-fontiny'
+import Fontiny from 'vite-plugin-fontiny'
 
 export default {
   plugins: [
-    VitePluginFontiny({
+    Fontiny({
       // options
       fontFileNames: ['Example-Font-Regular.ttf']
     }),

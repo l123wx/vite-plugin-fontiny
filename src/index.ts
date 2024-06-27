@@ -51,8 +51,7 @@ function VitePluginFontiny(userOptions: Options): Plugin {
         await new Promise<void>((resolve, reject) => {
           new Fontmin()
             .src(fontBuffer)
-            .use(Fontmin.glyph({ text, basicText: true,
-            }))
+            .use(Fontmin.glyph({ text, basicText: true }))
             .run((err, [file]) => {
               if (err) {
                 console.error(err)
