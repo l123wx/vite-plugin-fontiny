@@ -1,8 +1,8 @@
 {
   "private": true,
   "scripts": {
-    "start": "vite build && npm run preview",
-    "build:watch": "vite build",
+    "start": "npm run build && npm run preview",
+    "build": "vite build",
     "preview": "vite preview --open"
   },
   "dependencies": {
