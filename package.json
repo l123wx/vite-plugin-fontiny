@@ -11,6 +11,12 @@
     "url": "https://github.com/l123wx/vite-plugin-fontiny"
   },
   "bugs": "https://github.com/l123wx/vite-plugin-fontiny/issues",
+  "keywords": [
+    "fontiny",
+    "fontmin",
+    "vite",
+    "plugin"
+  ],
   "exports": {
     ".": {
       "import": "./dist/index.mjs",
