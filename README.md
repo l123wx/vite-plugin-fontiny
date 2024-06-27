@@ -11,7 +11,7 @@ A tool for removing unused Chinese characters from font files.
 ## Installation
 
 ```shell
-npm i vite-plugin-fontiny
+npm i -D vite-plugin-fontiny
 ```
 
 ## Usage
@@ -100,6 +100,12 @@ type FontFileNames = string[]
 ```
 
 default: `[]`
+
+## TODO
+
+ - [ ] Generate an html page showing which Chinese characters have been retained and which have been eliminated.
+ - [ ] User-defined match characters rules.
+ - [ ] Supports more types of font files, like otf, woff, woff2, eot.
 
 ## Thanks
 
