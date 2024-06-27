@@ -8,6 +8,12 @@
 
 A tool for removing unused Chinese characters from font files.
 
+## Roadmap
+
+ - [ ] Generate an html page showing which Chinese characters have been retained and which have been eliminated.
+ - [ ] User-defined match characters rules.
+ - [ ] Supports more types of font files, like otf, woff, woff2, eot.
+
 ## Installation
 
 ```shell
@@ -101,16 +107,9 @@ type FontFileNames = string[]
 
 default: `[]`
 
-## TODO
+## Credits
 
- - [ ] Generate an html page showing which Chinese characters have been retained and which have been eliminated.
- - [ ] User-defined match characters rules.
- - [ ] Supports more types of font files, like otf, woff, woff2, eot.
-
-## Thanks
-
- - [fontmin](https://github.com/ecomfe/fontmin)
- - [@antfu](https://github.com/antfu)
+Thanks to [fontmin](https://github.com/ecomfe/fontmin) and [@antfu](https://github.com/antfu)
 
 <!-- Badges -->
 
