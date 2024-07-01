@@ -1,9 +1,8 @@
 import fsp from 'node:fs/promises'
 import path from 'node:path'
 import process from 'node:process'
-// @ts-expect-error types deletion
-import glyf2svg from 'fonteditor-core/lib/ttf/util/glyf2svg'
 import { minify } from 'html-minifier'
+import glyf2svg from 'glyf2svg'
 import type { VisualizerOptions } from './types'
 
 function bytes2kb(bytes: number) {
@@ -96,8 +95,7 @@ export async function createVisualizer(options: VisualizerOptions) {
       <ul class="iconfont-list">
         ${glyf.map((glyph) => {
           try {
-            const scale = unitsPerEm > 512 ? (512 / unitsPerEm) : 1
-            const path = glyf2svg(glyph, { scale })
+            const path = glyf2svg(glyph)
 
             return `
               <li class="${glyph.isRemoved ? 'removed' : ''}" title="${glyph.unicode ? `\\u${Number(glyph.unicode.toString()).toString(16).padStart(4, '0').toLocaleUpperCase()}` : ''}">

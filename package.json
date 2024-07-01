@@ -45,6 +45,7 @@
   "dependencies": {
     "fonteditor-core": "^2.4.0",
     "fontmin": "^1.1.0",
+    "glyf2svg": "^0.0.1",
     "html-minifier": "^4.0.0"
   },
   "devDependencies": {
