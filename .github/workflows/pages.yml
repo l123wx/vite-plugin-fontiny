@@ -37,7 +37,9 @@ jobs:
         run: ni
 
       - name: Build
-        run: nr -C example/ build
+        run: |
+          nr -C example/ build
+          mv fontiny_visualizer.html ./dist/fontiny_visualizer.html
 
       - name: Build with Jekyll
         uses: actions/jekyll-build-pages@v1
