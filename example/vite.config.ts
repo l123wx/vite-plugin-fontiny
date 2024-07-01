@@ -1,7 +1,7 @@
 import { defineConfig } from 'vite'
 import Inspect from 'vite-plugin-inspect'
-// import Fontiny from '../src/index'
-import Fontiny from '../'
+import Fontiny from '../src/index'
+// import Fontiny from '../'
 
 export default defineConfig({
   base: './',
