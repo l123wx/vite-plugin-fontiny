@@ -8,6 +8,8 @@
 
 A tool for removing unused Chinese characters from font files.
 
+Currently only available for ttf format fonts, more will be supported in the future.
+
 ## Roadmap
 
  - [x] Generate an html page showing which Chinese characters have been retained and which have been eliminated.
@@ -104,7 +106,7 @@ required: `false` default: `false`
 
 ## Credits
 
-Thanks to [fontmin](https://github.com/ecomfe/fontmin) and [@antfu](https://github.com/antfu)
+Thanks to [fonteditor-core](https://github.com/kekee000/fonteditor-core), [fontmin](https://github.com/ecomfe/fontmin) and [@antfu](https://github.com/antfu)
 
 <!-- Badges -->
 

@@ -2,7 +2,7 @@ import fsp from 'node:fs/promises'
 import path from 'node:path'
 import process from 'node:process'
 // @ts-expect-error types deletion
-import glyf2svg from 'fonteditor-core/lib/ttf/util/glyf2svg.js'
+import glyf2svg from 'fonteditor-core/lib/ttf/util/glyf2svg'
 import { minify } from 'html-minifier'
 import type { VisualizerOptions } from './types'
 

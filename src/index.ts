@@ -1,9 +1,8 @@
 import path from 'node:path'
 import { Buffer } from 'node:buffer'
-import { createFilter } from '@rollup/pluginutils'
-import Fontmin from 'fontmin'
-import type { Plugin } from 'vite'
+import { type Plugin, createFilter } from 'vite'
 import { Font } from 'fonteditor-core'
+import Fontmin from 'fontmin'
 import { createVisualizer } from './createVisualizer'
 
 import type { Options } from './types'
@@ -14,6 +13,7 @@ function VitePluginFontiny(options: Options): Plugin {
 
   return {
     name: 'vite-plugin-fontiny',
+    apply: 'build',
     transform(code, id) {
       if (!filter(id))
         return

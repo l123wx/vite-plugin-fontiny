@@ -1,12 +1,11 @@
 {
+  "name": "example",
+  "type": "module",
   "private": true,
   "scripts": {
     "start": "npm run build && npm run preview",
     "build": "vite build",
     "preview": "vite preview --open"
-  },
-  "dependencies": {
-    "vue": "^3.4.30"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^5.0.5",
