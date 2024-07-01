@@ -1,37 +1,37 @@
+import type { TTF } from 'fonteditor-core'
+
 import type { FilterPattern } from '@rollup/pluginutils'
 
 export interface Options {
   /**
-   * Included range of scanned codes
+   * Which fonts you want to be compressed.
+   */
+  fontFileNames: string[]
+  /**
+   * Included range of scanned codes.
    *
-   * @default
-   * ```js
-   * [
-   *    '** /*.vue',
-   *    '** /*.ts',
-   *    '** /*.js',
-   *    '** /*.tsx',
-   *    '** /*.jsx',
-   *    '** /*.vue?vue&type=script*'
-   * ]
-   * ```
+   * @default `undefined`
    */
   include?: FilterPattern
   /**
-   * Excluded range of scanned codes
+   * Excluded range of scanned codes.
    *
-   * @default
-   * ```js
-   * [
-   *    /[/\\]node_modules[/\\]/,
-   *    /[/\\]\.git[/\\]/,
-   *    /[/\\]\.nuxt[/\\]/
-   * ]
-   * ```
+   * @default `undefined`
    */
   exclude?: FilterPattern
   /**
-   * Which fonts you want to be compressed
+   * If true, a visual HTML will be generated in the project root directory.
+   *
+   * @default `false`
    */
-  fontFileNames: string[]
+  visualizer?: boolean
+}
+
+export interface VisualizerOptions {
+  fontName: string
+  glyf: (TTF.Glyph & { isRemoved: boolean })[]
+  unitsPerEm: number
+  descent: number
+  originalSize: number
+  compressedSize: number
 }

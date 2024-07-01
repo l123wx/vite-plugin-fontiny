@@ -2,25 +2,13 @@ import path from 'node:path'
 import { Buffer } from 'node:buffer'
 import { createFilter } from '@rollup/pluginutils'
 import Fontmin from 'fontmin'
-
 import type { Plugin } from 'vite'
+import { Font } from 'fonteditor-core'
+import { createVisualizer } from './createVisualizer'
+
 import type { Options } from './types'
 
-const defaultOptions: Options = {
-  include: [
-    '**/*.vue',
-    '**/*.ts',
-    '**/*.js',
-    '**/*.tsx',
-    '**/*.jsx',
-    '**/*.vue?vue&type=script*',
-  ],
-  exclude: [/[/\\]node_modules[/\\]/, /[/\\]\.git[/\\]/, /[/\\]\.nuxt[/\\]/],
-  fontFileNames: [],
-}
-
-function VitePluginFontiny(userOptions: Options): Plugin {
-  const options = Object.assign(defaultOptions, userOptions)
+function VitePluginFontiny(options: Options): Plugin {
   const filter = createFilter(options?.include, options?.exclude)
   const usedChars = new Set()
 
@@ -47,6 +35,8 @@ function VitePluginFontiny(userOptions: Options): Plugin {
           continue
 
         const fontBuffer = Buffer.from(targetFontBundle.source)
+        const originalTTFObject = Font.create(fontBuffer, { type: 'ttf' }).get()
+        const originalSize = targetFontBundle.source.length
 
         await new Promise<void>((resolve, reject) => {
           new Fontmin()
@@ -62,6 +52,23 @@ function VitePluginFontiny(userOptions: Options): Plugin {
               resolve()
             })
         })
+
+        if (options.visualizer) {
+          const compressedTTFObject = Font.create(targetFontBundle.source, { type: 'ttf' }).get()
+          const savedFontNameMap = compressedTTFObject.glyf.reduce<Map<string, true>>((map, item) => {
+            map.set(item.name, true)
+            return map
+          }, new Map())
+
+          await createVisualizer({
+            fontName: originalTTFObject.name.fontFamily,
+            glyf: originalTTFObject.glyf.map(item => ({ ...item, isRemoved: !savedFontNameMap.has(item.name) })),
+            unitsPerEm: originalTTFObject.head.unitsPerEm,
+            descent: originalTTFObject.hhea.descent,
+            originalSize,
+            compressedSize: targetFontBundle.source.length,
+          })
+        }
       }
     },
   }

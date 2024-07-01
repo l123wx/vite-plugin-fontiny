@@ -7,8 +7,8 @@ export default defineConfig({
   plugins: [
     Inspect(),
     VitePluginFontiny({
-      include: ['./index.html'],
       fontFileNames: ['ZCOOLKuaiLe-Regular.ttf'],
+      visualizer: true,
     }),
   ],
 })

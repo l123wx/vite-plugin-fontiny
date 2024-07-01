@@ -10,7 +10,7 @@ A tool for removing unused Chinese characters from font files.
 
 ## Roadmap
 
- - [ ] Generate an html page showing which Chinese characters have been retained and which have been eliminated.
+ - [x] Generate an html page showing which Chinese characters have been retained and which have been eliminated.
  - [ ] User-defined match characters rules.
  - [ ] Supports more types of font files, like otf, woff, woff2, eot.
 
@@ -60,43 +60,6 @@ The actual compression effect is affected by the number of Chinese characters us
 
 ## Options
 
-#### `include`
-
-Included range of scanned codes.
-
-```ts
-type Include = ReadonlyArray<string | RegExp> | string | RegExp | null
-```
-
-default:
-```js
-[
-  '**/*.vue',
-  '**/*.ts',
-  '**/*.js',
-  '**/*.tsx',
-  '**/*.jsx',
-  '**/*.vue?vue&type=script*'
-]
-```
-
-### `exclude`
-
-Excluded range of scanned codes.
-
-```ts
-type Exclude = ReadonlyArray<string | RegExp> | string | RegExp | null
-```
-
-default:
-```js
-[
-  /[/\\]node_modules[/\\]/,
-  /[/\\]\.git[/\\]/,
-  /[/\\]\.nuxt[/\\]/
-]
-```
-
 ### `fontFileNames`
 
 Which fonts you want to be compressed.
@@ -105,7 +68,39 @@ Which fonts you want to be compressed.
 type FontFileNames = string[]
 ```
 
-default: `[]`
+required: `true`
+
+#### `include`
+
+Included range of scanned codes.
+
+```ts
+type Include = ReadonlyArray<string | RegExp> | string | RegExp | null | undefined
+```
+
+required: `false` default: `undefined`
+
+### `exclude`
+
+Excluded range of scanned codes.
+
+```ts
+type Exclude = ReadonlyArray<string | RegExp> | string | RegExp | null | undefined
+```
+
+required: `false` default: `undefined`
+
+### `visualizer`
+
+If true, a visual HTML will be generated in the project root directory.
+
+```ts
+type Visualizer = boolean
+```
+
+required: `false` default: `false`
+
+![visualizer example image](./docs/visualizer_example.png)
 
 ## Credits
 
