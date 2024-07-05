@@ -32,32 +32,39 @@
     "dist"
   ],
   "scripts": {
-    "dev": "npm run build -- --watch",
-    "example:start": "npm -C example run start",
-    "build": "tsup src/index.ts --dts --format cjs,esm",
-    "prepublishOnly": "npm run build",
+    "dev": "nr build -- --watch",
+    "dev:client": "vite src/client",
+    "example:start": "nr -C example start",
+    "build": "nr build:node && nr build:client",
+    "build:node": "tsup src/index.ts --dts --format cjs,esm",
+    "build:client": "vite build src/client && rimraf ./dist/client/font.json",
+    "prepublishOnly": "nr build",
     "release": "npx bumpp && npm publish",
+    "clean:lib": "rimraf node_modules",
     "lint": "eslint ."
   },
   "peerDependencies": {
     "vite": "^2.9.0 || ^3.0.0 || ^4.0.0 || ^5.0.0"
   },
   "dependencies": {
+    "element-plus": "^2.7.6",
     "fonteditor-core": "^2.4.0",
     "fontmin": "^1.1.0",
     "glyf2svg": "^0.0.1",
-    "html-minifier": "^4.0.0"
+    "vue": "^3.4.31"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^2.21.1",
-    "@types/html-minifier": "^4.0.5",
+    "@antfu/ni": "^0.21.12",
     "@types/node": "^20.14.9",
     "@typescript-eslint/eslint-plugin": "^7.14.1",
+    "@vitejs/plugin-vue": "^5.0.5",
     "bumpp": "^9.4.1",
     "eslint": "^9.5.0",
     "rollup": "^4.18.0",
     "tsup": "^8.1.0",
     "typescript": "^5.5.2",
+    "unplugin-element-plus": "^0.8.0",
     "vite": "^5.3.1"
   }
 }
