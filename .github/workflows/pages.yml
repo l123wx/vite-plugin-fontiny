@@ -40,14 +40,6 @@ jobs:
         run: |
           nr build
           nr -C example/ build
-          
-          # Fix secondary directory resource path problem Temporary solution
-          cd example
-          mv .vite-fontiny/ dist/.vite-fontiny/
-          cd dist
-          mv .vite-fontiny/assets/* assets
-          mv .vite-fontiny/font.json font.json
-          mv .vite-fontiny/vite.svg  vite.svg
 
       - name: Build with Jekyll
         uses: actions/jekyll-build-pages@v1

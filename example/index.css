@@ -51,7 +51,7 @@ h1 {
 }
 
 input {
-    width: 300px;
+    width: 350px;
     height: 20px;
     text-align: center;
     border-radius: 8px;
@@ -63,6 +63,7 @@ input {
     background-color: #1a1a1a;
     cursor: pointer;
     transition: border-color 0.25s;
+    font-family: initial;
 }
 
 input:hover {
