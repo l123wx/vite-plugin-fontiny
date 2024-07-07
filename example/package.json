@@ -8,7 +8,7 @@
     "preview": "vite preview --open"
   },
   "devDependencies": {
-    "vite": "^5.0.4",
+    "vite": "^5.3.3",
     "vite-plugin-inspect": "^0.8.1"
   }
 }

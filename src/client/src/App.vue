@@ -1,9 +1,23 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
 import { ElFormItem, ElPagination, ElSwitch, ElTag, ElTooltip } from 'element-plus'
-import fontJSON from '../public/font.json'
+import { VISUALIZER_FONT_JSON_NAME } from '../../constants'
 
-const { fontName, originalSize, compressedSize, chars: originalChars } = fontJSON as FontJSON
+const fontJSON = ref<FontJSON>({
+  fontName: '',
+  originalSize: 0,
+  compressedSize: 0,
+  chars: [],
+})
+
+async function loadFontJSON() {
+  const response = await fetch(`/${VISUALIZER_FONT_JSON_NAME}`)
+  const result = await response.json()
+
+  fontJSON.value = result
+}
+
+loadFontJSON()
 
 function bytes2kb(bytes: number) {
   return `${(bytes / 1000).toFixed(2)}KB`
@@ -15,21 +29,21 @@ const current = ref(1)
 const pageSize = ref(pageSizes[1])
 const hideRemovedChar = ref(false)
 
-const chars = computed(() => originalChars.filter(char => !(hideRemovedChar.value && char.isRemoved)))
+const chars = computed(() => fontJSON.value.chars.filter(char => !(hideRemovedChar.value && char.isRemoved)))
 const currentChars = computed(() => chars.value.slice((current.value - 1) * pageSize.value, current.value * pageSize.value))
 </script>
 
 <template>
   <h1 class="font-name">
-    {{ fontName }}
+    {{ fontJSON.fontName }}
   </h1>
   <p class="size">
     <ElTag type="danger">
-      {{ bytes2kb(originalSize) }}
+      {{ bytes2kb(fontJSON.originalSize) }}
     </ElTag>
     <span style="padding: 0 5px;">>>></span>
     <ElTag type="success">
-      {{ bytes2kb(compressedSize) }}
+      {{ bytes2kb(fontJSON.compressedSize) }}
     </ElTag>
   </p>
   <div class="operation">

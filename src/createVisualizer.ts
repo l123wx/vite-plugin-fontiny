@@ -1,10 +1,12 @@
-import fsp from 'node:fs/promises'
 import path from 'node:path'
-import process from 'node:process'
+import fs from 'fs-extra'
 import glyf2svg from 'glyf2svg'
+import type { ResolvedConfig } from 'vite'
 import type { VisualizerOptions } from './types'
+import { DIR_CLIENT } from './dir'
+import { VISUALIZER_FONT_JSON_NAME } from './constants'
 
-export async function createVisualizer(options: VisualizerOptions) {
+export async function createVisualizer(config: ResolvedConfig, options: VisualizerOptions) {
   const { fontName, glyf, unitsPerEm, descent, originalSize, compressedSize } = options
 
   const fontJSON = {
@@ -19,6 +21,8 @@ export async function createVisualizer(options: VisualizerOptions) {
     })),
   }
 
-  await fsp.writeFile(path.join(process.cwd(), 'client/font.json'), JSON.stringify(fontJSON), 'utf-8')
-  await fsp.cp(path.join(process.cwd(), 'client/'), path.join(process.cwd(), '/'))
+  const outputDir = path.join(config.root, '.vite-fontiny/')
+
+  await fs.copy(DIR_CLIENT, outputDir)
+  await fs.writeFile(path.join(outputDir, VISUALIZER_FONT_JSON_NAME), JSON.stringify(fontJSON), 'utf-8')
 }

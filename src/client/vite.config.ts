@@ -6,6 +6,9 @@ import ElementPlus from 'unplugin-element-plus/vite'
 // https://vitejs.dev/config/
 export default defineConfig({
   base: './',
+  server: {
+    port: 10000,
+  },
   plugins: [
     vue(),
     ElementPlus({}),

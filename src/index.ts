@@ -1,6 +1,6 @@
 import path from 'node:path'
 import { Buffer } from 'node:buffer'
-import { type Plugin, createFilter } from 'vite'
+import { type Plugin, type ResolvedConfig, createFilter } from 'vite'
 import { Font } from 'fonteditor-core'
 import Fontmin from 'fontmin'
 import { createVisualizer } from './createVisualizer'
@@ -11,9 +11,14 @@ function VitePluginFontiny(options: Options): Plugin {
   const filter = createFilter(options?.include, options?.exclude)
   const usedChars = new Set()
 
+  let _config: ResolvedConfig
+
   return {
     name: 'vite-plugin-fontiny',
     apply: 'build',
+    configResolved(config) {
+      _config = config
+    },
     transform(code, id) {
       if (!filter(id))
         return
@@ -60,7 +65,7 @@ function VitePluginFontiny(options: Options): Plugin {
             return map
           }, new Map())
 
-          await createVisualizer({
+          await createVisualizer(_config, {
             fontName: originalTTFObject.name.fontFamily,
             glyf: originalTTFObject.glyf.map(item => ({ ...item, isRemoved: !savedFontNameMap.has(item.name) })),
             unitsPerEm: originalTTFObject.head.unitsPerEm,
