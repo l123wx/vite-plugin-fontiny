@@ -38,8 +38,9 @@ jobs:
 
       - name: Build
         run: |
+          nr build
           nr -C example/ build
-          mv example/fontiny_visualizer.html example/dist/fontiny_visualizer.html
+          mv example/.vite-fontiny example/dist/.vite-fontiny
 
       - name: Build with Jekyll
         uses: actions/jekyll-build-pages@v1
