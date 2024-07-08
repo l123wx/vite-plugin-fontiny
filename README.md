@@ -96,6 +96,8 @@ required: `false` default: `undefined`
 
 If true, a visual HTML will be generated in the project root directory.
 
+After running `vite build`, the visualizer client will be generated under .vite-fontiny, where you can use `npx serve .vite-inspect` to check the result.
+
 ```ts
 type Visualizer = boolean
 ```
