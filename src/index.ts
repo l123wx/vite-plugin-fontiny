@@ -1,7 +1,6 @@
 import path from 'node:path'
 import { Buffer } from 'node:buffer'
 import { type Plugin, type ResolvedConfig, createFilter } from 'vite'
-import { Font } from 'fonteditor-core'
 import Fontmin from 'fontmin'
 import { createVisualizer } from './createVisualizer'
 
@@ -40,10 +39,8 @@ function VitePluginFontiny(options: Options): Plugin {
           continue
 
         const fontBuffer = Buffer.from(targetFontBundle.source)
-        const originalTTFObject = Font.create(fontBuffer, { type: 'ttf' }).get()
-        const originalSize = targetFontBundle.source.length
 
-        await new Promise<void>((resolve, reject) => {
+        const compressedFontSource = await new Promise<Uint8Array>((resolve, reject) => {
           new Fontmin()
             .src(fontBuffer)
             .use(Fontmin.glyph({ text, basicText: true }))
@@ -53,27 +50,18 @@ function VitePluginFontiny(options: Options): Plugin {
                 reject(err)
               }
               // @ts-expect-error file type is error
-              targetFontBundle.source = file.contents
-              resolve()
+              resolve(file.contents)
             })
         })
 
         if (options.visualizer) {
-          const compressedTTFObject = Font.create(targetFontBundle.source, { type: 'ttf' }).get()
-          const savedFontNameMap = compressedTTFObject.glyf.reduce<Map<string, true>>((map, item) => {
-            map.set(item.name, true)
-            return map
-          }, new Map())
-
           await createVisualizer(_config, {
-            fontName: originalTTFObject.name.fontFamily,
-            glyf: originalTTFObject.glyf.map(item => ({ ...item, isRemoved: !savedFontNameMap.has(item.name) })),
-            unitsPerEm: originalTTFObject.head.unitsPerEm,
-            descent: originalTTFObject.hhea.descent,
-            originalSize,
-            compressedSize: targetFontBundle.source.length,
+            originalFontData: targetFontBundle.source,
+            compressedFontData: compressedFontSource,
           })
         }
+
+        targetFontBundle.source = compressedFontSource
       }
     },
   }

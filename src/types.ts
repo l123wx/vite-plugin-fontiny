@@ -1,5 +1,3 @@
-import type { TTF } from 'fonteditor-core'
-
 import type { FilterPattern } from '@rollup/pluginutils'
 
 export interface Options {
@@ -27,11 +25,7 @@ export interface Options {
   visualizer?: boolean
 }
 
-export interface VisualizerOptions {
-  fontName: string
-  glyf: (TTF.Glyph & { isRemoved: boolean })[]
-  unitsPerEm: number
-  descent: number
-  originalSize: number
-  compressedSize: number
+export interface VisualizerData {
+  originalFontData: string | Uint8Array
+  compressedFontData: string | Uint8Array
 }
