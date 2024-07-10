@@ -45,6 +45,10 @@ export async function createVisualizer(ctx: ResolvedConfig, data: VisualizerData
 
   const outputDir = path.join(ctx.root, '.vite-fontiny/')
 
+  if (await fs.exists(outputDir)) {
+    await fs.remove(outputDir)
+  }
+
   await fs.copy(DIR_CLIENT, outputDir)
   await fs.writeFile(path.join(outputDir, VISUALIZER_FONT_JSON_NAME), JSON.stringify(fontJSON), 'utf-8')
 }
