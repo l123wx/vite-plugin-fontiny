@@ -2,13 +2,13 @@ import path from 'node:path'
 import { Buffer } from 'node:buffer'
 import { type Plugin, type ResolvedConfig, createFilter } from 'vite'
 import Fontmin from 'fontmin'
-import { createVisualizer } from './createVisualizer'
+import { copyClient, createFontDiffJSON } from './visualizer'
 
 import type { Options } from './types'
 
 function VitePluginFontiny(options: Options): Plugin {
   const filter = createFilter(options?.include, options?.exclude)
-  const usedChars = new Set()
+  const usedChars = new Set<string>()
 
   let _config: ResolvedConfig
 
@@ -29,7 +29,13 @@ function VitePluginFontiny(options: Options): Plugin {
       return null
     },
     async generateBundle(_, bundle) {
-      const text = Array.from(usedChars).join('')
+      const visualizerOutputDir = path.join(_config.root, '.vite-fontiny/')
+
+      if (options.visualizer) {
+        await copyClient(visualizerOutputDir)
+      }
+
+      const chats = Array.from(usedChars)
 
       for (const dir of Object.keys(bundle)) {
         const targetFontBundle = bundle[dir]
@@ -38,24 +44,10 @@ function VitePluginFontiny(options: Options): Plugin {
         if (targetFontBundle.type !== 'asset' || !options.fontFileNames.includes(targetFontFileName))
           continue
 
-        const fontBuffer = Buffer.from(targetFontBundle.source)
-
-        const compressedFontSource = await new Promise<Uint8Array>((resolve, reject) => {
-          new Fontmin()
-            .src(fontBuffer)
-            .use(Fontmin.glyph({ text, basicText: true }))
-            .run((err, [file]) => {
-              if (err) {
-                console.error(err)
-                reject(err)
-              }
-              // @ts-expect-error file type is error
-              resolve(file.contents)
-            })
-        })
+        const compressedFontSource = await fontTreeShaking(targetFontBundle.source, chats)
 
         if (options.visualizer) {
-          await createVisualizer(_config, {
+          await createFontDiffJSON(visualizerOutputDir, {
             originalFontData: targetFontBundle.source,
             compressedFontData: compressedFontSource,
           })
@@ -65,6 +57,24 @@ function VitePluginFontiny(options: Options): Plugin {
       }
     },
   }
+}
+
+function fontTreeShaking(fontSource: string | Uint8Array, chars: string[] = []) {
+  const fontBuffer = Buffer.from(fontSource)
+
+  return new Promise<Uint8Array>((resolve, reject) => {
+    new Fontmin()
+      .src(fontBuffer)
+      .use(Fontmin.glyph({ text: chars.join(''), basicText: true }))
+      .run((err, [file]) => {
+        if (err) {
+          console.error(err)
+          reject(err)
+        }
+        // @ts-expect-error file type is error
+        resolve(file.contents)
+      })
+  })
 }
 
 export default VitePluginFontiny

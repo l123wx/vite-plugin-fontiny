@@ -29,3 +29,20 @@ export interface VisualizerData {
   originalFontData: string | Uint8Array
   compressedFontData: string | Uint8Array
 }
+
+export interface VisualizerFontJSON {
+  fontName: string
+  originalSize: number
+  compressedSize: number
+  chars: {
+    unicode: string
+    svg: string
+    id: number
+    isRemoved: boolean
+  }[]
+}
+
+export interface FontJSONInfo {
+  name: string
+  path: string
+}

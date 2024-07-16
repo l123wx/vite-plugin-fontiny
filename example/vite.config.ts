@@ -8,7 +8,7 @@ export default defineConfig({
   plugins: [
     Inspect(),
     Fontiny({
-      fontFileNames: ['ZCOOLKuaiLe-Regular.ttf'],
+      fontFileNames: ['ZCOOLKuaiLe-Regular.ttf', 'SourceHanSansCN-Normal.ttf'],
       visualizer: true,
     }),
   ],

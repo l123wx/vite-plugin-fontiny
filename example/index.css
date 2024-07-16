@@ -1,5 +1,5 @@
 body {
-    font-family: 'LongCang';
+    font-family: 'ZCOOLKuaiLe';
     font-weight: normal;
 }
 
@@ -8,8 +8,13 @@ body {
 }
 
 @font-face {
-    font-family: "LongCang";
+    font-family: "ZCOOLKuaiLe";
     src: url("./assets/ZCOOLKuaiLe-Regular.ttf") format("truetype")
+}
+
+@font-face {
+    font-family: "SourceHanSansCN";
+    src: url("./assets/SourceHanSansCN-Normal.ttf") format("truetype")
 }
 
 :root {

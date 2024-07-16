@@ -37,7 +37,7 @@
     "example:start": "nr -C example start",
     "build": "nr build:node && nr build:client",
     "build:node": "tsup src/index.ts --dts --format cjs,esm",
-    "build:client": "vite build src/client",
+    "build:client": "vite build src/client & rimraf dist/client/fontData -rf",
     "prepublishOnly": "nr build",
     "release": "npx bumpp && npm publish",
     "clean:lib": "rimraf node_modules",

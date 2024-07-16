@@ -1,0 +1,10 @@
+[
+  {
+    "name": "Font Name 1",
+    "path": "/fontData/font.json"
+  },
+  {
+    "name": "Font Name 2",
+    "path": "/fontData/font2.json"
+  }
+]
