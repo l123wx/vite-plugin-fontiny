@@ -42,8 +42,12 @@
     "astro"
   ],
   "cSpell.words": [
+    "fonteditor",
     "Fontiny",
     "Fontmin",
-    "truetype"
+    "glyf",
+    "pluginutils",
+    "truetype",
+    "unplugin"
   ]
 }

@@ -43,8 +43,8 @@ function bytes2kb(bytes: number) {
 const pageSizes = [100, 200, 500, 1000]
 
 const current = ref(1)
-const pageSize = ref(pageSizes[0])
-const hideRemovedChar = ref(false)
+const pageSize = ref(pageSizes[1])
+const hideRemovedChar = ref(true)
 
 const chars = computed(() => fontJSON.value.chars.filter(char => !(hideRemovedChar.value && char.isRemoved)))
 const currentChars = computed(() => chars.value.slice((current.value - 1) * pageSize.value, current.value * pageSize.value))
